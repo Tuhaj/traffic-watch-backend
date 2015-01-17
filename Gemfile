@@ -30,6 +30,8 @@ gem 'gmaps4rails'
 
 gem 'hashie'
 
+gem 'byebug'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
