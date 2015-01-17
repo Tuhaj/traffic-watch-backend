@@ -1,4 +1,3 @@
 load 'traffic.rb'
-
-t = Traffic.new
+return t = Traffic.new
 puts 'loaded'

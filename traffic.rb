@@ -10,24 +10,18 @@ class Traffic
     # @params = params
   end
 
-  DATA = {
-    warsaw: {
-      point_1: {
-        lat: "52.2220515",
-        lng: "21.2504114"
-      },
-      target: {
-        lat: "52.1490187",
-        lng: "21.1888543"
-      }
-    }
-  }
 
-  def get_data_json
-    url = set_url("52.2220515,21.2504114", "52.1490187,21.1888543")
+  def get_data_json(marker_coordinates, center)
+    url = set_url(marker_coordinates, center)
     open(url) do |f|
       JSON.load(f)
     end
+  end
+
+  def save_samples_for_city(city_name)
+    city= City.find_by_name(city_name)
+    puts city.name
+    puts city.created_at
   end
 
   def set_url(origin, destination)
@@ -39,7 +33,11 @@ class Traffic
   end
 
   def time
-    legs[0]["duration"]["value"] / 60
+    legs[0]["duration"]["value"]
+  end
+
+  def time_minutes
+    time / 60
   end
 
   def time_text

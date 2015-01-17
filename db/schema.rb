@@ -11,11 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117192954) do
+ActiveRecord::Schema.define(version: 20150117210408) do
 
   create_table "cities", force: true do |t|
     t.string   "name"
     t.string   "center"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "markers", force: true do |t|
+    t.string   "lat"
+    t.string   "lng"
+    t.integer  "city_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "samples", force: true do |t|
+    t.string   "time"
+    t.integer  "marker_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
