@@ -29,20 +29,20 @@ class GoogleMapDataApi
   end
 
   def self.url_query(marker, center)
-    "https://maps.googleapis.com/maps/api/distancematrix/json?origins=#{marker.to_location}&destinations=#{center}&key=AIzaSyCgjEq8IOYmdK0hOKmBjVyPY9QY2aJErP4"
-    # bad: "http://maps.googleapis.com/maps/api/directions/json?origin=#{marker.to_location}&destination=#{center}"
+    puts "http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=#{marker.to_location}&wp.1=#{center}&key=AjawBlxww1VCH8MChGmqC4WAOm2ya5jHSTDy94IFFfchtY7-EEkpzPJAtrJ4Nuja"
+    "http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=#{marker.to_location}&wp.1=#{center}&key=AjawBlxww1VCH8MChGmqC4WAOm2ya5jHSTDy94IFFfchtY7-EEkpzPJAtrJ4Nuja"
   end
 
   def self.time(data)
-    data["rows"][0]["elements"][0]["duration"]["value"]
+    data["resourceSets"][0]["resources"][0]["travelDurationTraffic"]
   end
 
   def self.time_in_minutes(data)
-    data["rows"][0]["elements"][0]["duration"]["value"] / 60
+    data["resourceSets"][0]["resources"][0]["travelDurationTraffic"] / 60
   end
 
-  def self.time_text(data)
-    data["rows"][0]["elements"][0]["duration"]["text"]
+  def self.traffic_congestion(data)
+    data["resourceSets"][0]["resources"][0]["trafficCongestion"]
   end
 
   def self.get_report(city_name, raport_hash, average_min)
@@ -52,6 +52,14 @@ class GoogleMapDataApi
     puts "The average time to get now the center of #{city_name} is #{ average_min } minutes"
   end
 end
+
+
+# http://dev.virtualearth.net/REST/v1/Locations?q=seattle&output=xml&key=BingMapsKey
+# 52.22205,21.25041
+
+# 52.14901,21.18885
+
+# http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=redmond%2Cwa&wp.1=Issaquah%2Cwa&avoid=minimizeTolls&key=
 # bad: open("http://maps.googleapis.com/maps/api/directions/json?origin=52.2220515,21.2504114&destination=52.1490187,21.1888543") {|f| JSON.load(f)}
 # working: https://maps.googleapis.com/maps/api/distancematrix/output?
 
