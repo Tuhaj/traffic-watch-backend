@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150117210408) do
   create_table "markers", force: true do |t|
     t.string   "lat"
     t.string   "lng"
+    t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
