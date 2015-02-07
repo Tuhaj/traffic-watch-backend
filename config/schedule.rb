@@ -24,7 +24,6 @@ set :output, "log/cron_log.log"
 # every 15.minutes do
 #   rake "cron"
 # end
-every 2.minutes do
-  command "/bin/bash -lic 'rake 'cron''"
-  runner "puts 'hehhehehe'"
+every 15.minutes do
+  rake 'cron'
 end
