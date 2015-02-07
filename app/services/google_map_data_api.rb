@@ -29,7 +29,8 @@ class GoogleMapDataApi
     end
 
     average_min = ( sum / city.markers.count ) / 60
-    get_report(city_name, raport_hash, average_min)
+    raport = get_report(city_name, raport_hash, average_min)
+    Rails.logger.info(raport)
   end
 
   private
