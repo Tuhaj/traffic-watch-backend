@@ -7,6 +7,7 @@
 #
 # set :output, "/path/to/my/cron_log.log"
 # set :output, "/home/piotr/traffic-watch-backend/log/cron_log.log"
+env :PATH, '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
 set :output, "log/cron_log.log"
 #
 # every 2.hours do
@@ -20,6 +21,10 @@ set :output, "log/cron_log.log"
 # end
 
 # Learn more: http://github.com/javan/whenever
-every 15.minutes do
-  rake "cron"
+# every 15.minutes do
+#   rake "cron"
+# end
+every 2.minutes do
+  command "/bin/bash -lic 'rake 'cron''"
+  runner "puts 'hehhehehe'"
 end

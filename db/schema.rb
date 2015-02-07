@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150117210408) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "cities", force: true do |t|
     t.string   "name"
     t.string   "center"
@@ -23,7 +26,6 @@ ActiveRecord::Schema.define(version: 20150117210408) do
   create_table "markers", force: true do |t|
     t.string   "lat"
     t.string   "lng"
-    t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
