@@ -1,6 +1,18 @@
 class GoogleMapDataApi
   require 'open-uri'
 
+  BING_MAP_API_KEY = "AjawBlxww1VCH8MChGmqC4WAOm2ya5jHSTDy94IFFfchtY7-EEkpzPJAtrJ4Nuja"
+
+  # get current traffic for all cities:
+  # GoogleMapDataApi.save_samples_for_all_cities
+
+  def self.save_samples_for_all_cities
+    City.all.each do |city|
+      save_samples_for_city(city.name)
+    end
+    'samples saved with no errors'
+  end
+
   def self.save_samples_for_city(city_name)
     city= City.find_by_name(city_name)
     center = city.center
@@ -29,21 +41,26 @@ class GoogleMapDataApi
   end
 
   def self.url_query(marker, center)
-    puts "http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=#{marker.to_location}&wp.1=#{center}&key=AjawBlxww1VCH8MChGmqC4WAOm2ya5jHSTDy94IFFfchtY7-EEkpzPJAtrJ4Nuja"
-    "http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=#{marker.to_location}&wp.1=#{center}&key=AjawBlxww1VCH8MChGmqC4WAOm2ya5jHSTDy94IFFfchtY7-EEkpzPJAtrJ4Nuja"
+    "http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=#{ marker.to_location }&wp.1=#{ center }&key=#{ BING_MAP_API_KEY }"
+  end
+
+  def self.data_base(data)
+    data["resourceSets"][0]["resources"][0]
   end
 
   def self.time(data)
-    data["resourceSets"][0]["resources"][0]["travelDurationTraffic"]
+    data_base(data)["travelDurationTraffic"]
   end
 
+### not used now
   def self.time_in_minutes(data)
-    data["resourceSets"][0]["resources"][0]["travelDurationTraffic"] / 60
+    data_base(data)["travelDurationTraffic"] / 60
   end
 
   def self.traffic_congestion(data)
-    data["resourceSets"][0]["resources"][0]["trafficCongestion"]
+    data_base(data)["trafficCongestion"]
   end
+###
 
   def self.get_report(city_name, raport_hash, average_min)
     raport_hash.each do |key, value|
@@ -52,15 +69,8 @@ class GoogleMapDataApi
     puts "The average time to get now the center of #{city_name} is #{ average_min } minutes"
   end
 end
+# run command:
+# GoogleMapDataApi.save_samples_for_city('Warsaw')
 
-
-# http://dev.virtualearth.net/REST/v1/Locations?q=seattle&output=xml&key=BingMapsKey
-# 52.22205,21.25041
-
-# 52.14901,21.18885
-
-# http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=redmond%2Cwa&wp.1=Issaquah%2Cwa&avoid=minimizeTolls&key=
-# bad: open("http://maps.googleapis.com/maps/api/directions/json?origin=52.2220515,21.2504114&destination=52.1490187,21.1888543") {|f| JSON.load(f)}
-# working: https://maps.googleapis.com/maps/api/distancematrix/output?
-
-# test City.first.markers[0].samples.pluck(:time)
+# test:
+# City.first.markers[0].samples.pluck(:time)
