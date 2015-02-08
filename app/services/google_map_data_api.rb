@@ -64,6 +64,7 @@ class GoogleMapDataApi
 ###
 
   def self.get_report(city_name, raport_hash, average_min)
+    puts "Now at #{Time.now}"
     raport_hash.each do |key, value|
       puts "#{key}.............#{value}"
     end

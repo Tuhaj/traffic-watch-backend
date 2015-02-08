@@ -32,6 +32,10 @@ gem 'hashie'
 
 gem 'byebug'
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+end
+
 gem 'whenever', :require => false
 
 # Use ActiveModel has_secure_password
