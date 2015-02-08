@@ -28,7 +28,10 @@ class GoogleMapDataApi
       sum += current_time.to_i
     end
 
-    average_min = ( sum / city.markers.count ) / 60
+    average_sec = sum / city.markers.count
+    average_min = ( average_sec ) / 60
+
+    city.stats.create(average_time_to_center: average_sec )
     raport = get_report(city_name, raport_hash, average_min)
     Rails.logger.info(raport)
   end
