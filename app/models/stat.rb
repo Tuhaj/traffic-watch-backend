@@ -4,4 +4,8 @@ class Stat < ActiveRecord::Base
   def average_time_to_center_min
     average_time_to_center.to_i / 60
   end
+
+  def to_raport
+    "#{ created_at }.............#{ average_time_to_center }"
+  end
 end
