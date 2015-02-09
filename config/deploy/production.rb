@@ -5,9 +5,7 @@
 # property set.  Don't declare `role :all`, it's a meta role.
 
 set :bagman, '178.62.46.43'
-server :bagman, roles: %w{web app db}, :primary => true
-
-
+server :bagman, user: 'piotr', roles: %w{web app db}, :primary => true
 
 # Extended Server Syntax
 # ======================
@@ -25,17 +23,14 @@ server :bagman, roles: %w{web app db}, :primary => true
 #
 # Global options
 # --------------
- set :ssh_options, {
-   keys: %w(/Users/piotrzientara/.ssh/bagman_rsa"),
-   forward_agent: false,
-   auth_methods: %w(password)
- }
+
+ set :ssh_options, {:forward_agent => true}
 # ssh_options[:port] = 22
 #
 # And/or per server (overrides global)
 # ------------------------------------
 # server 'example.com',
-#   user: 'user_name',
+  # user: 'piotr'
 #   roles: %w{web app},
 #   ssh_options: {
 #     user: 'user_name', # overrides user setting above
