@@ -3,9 +3,6 @@ class GoogleMapDataApi
 
   BING_MAP_API_KEY = "AjawBlxww1VCH8MChGmqC4WAOm2ya5jHSTDy94IFFfchtY7-EEkpzPJAtrJ4Nuja"
 
-  # get current traffic for all cities:
-  # GoogleMapDataApi.save_samples_for_all_cities
-
   def self.save_samples_for_all_cities
     City.all.each do |city|
       save_samples_for_city(city.name)
@@ -74,8 +71,3 @@ class GoogleMapDataApi
     puts "The average time to get now the center of #{city_name} is #{ average_min } minutes"
   end
 end
-# run command:
-# GoogleMapDataApi.save_samples_for_city('Warsaw')
-
-# test:
-# City.first.markers[0].samples.pluck(:time)

@@ -8,4 +8,8 @@ class Stat < ActiveRecord::Base
   def to_raport
     "#{ created_at }.............#{ average_time_to_center }"
   end
+
+  def to_raport_min
+    "#{ created_at }.............#{ average_time_to_center_min }"
+  end
 end
