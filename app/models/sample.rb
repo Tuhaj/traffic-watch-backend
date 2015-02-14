@@ -6,6 +6,6 @@ class Sample < ActiveRecord::Base
   end
 
   def traffic_load_percentage
-    "#{ current_time_over_no_traffic.round(2) * 100 }%"
+    "#{ (current_time_over_no_traffic * 100).round() }%"
   end
 end

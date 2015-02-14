@@ -1,11 +1,11 @@
 class Results
 
   def self.show(city_name, opts={})
+    h = opts[:hours]
+
     stats = City.find_by_name(city_name).stats
-    if opts[:hours] != nil
-      h = opts[:hours]
-      stats = stats.where('created_at > ?', h.hours.ago )
-    end
+    stats = stats.where('created_at > ?', h.hours.ago ) if h
+
     stats.each do |stat|
       message = opts[:min] == true ? stat.to_raport_min : stat.to_raport
       puts message

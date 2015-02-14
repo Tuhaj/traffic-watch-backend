@@ -9,10 +9,9 @@ class MarkersDataManager
 
   def self.save_travel_duration_without_traffic(city_name)
     city = City.find_by_name(city_name)
-    center = city.center
 
     city.markers.each do |marker|
-      data = BingMapDataApi.new(marker.to_location, center)
+      data = BingMapDataApi.new(marker.to_location, city.center)
       marker.update(time_without_traffic: data.travel_duration_without_traffic)
     end
   end
