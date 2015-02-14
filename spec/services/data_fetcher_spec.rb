@@ -11,7 +11,6 @@ describe DataFetcher do
   end
 
   it 'calls BingMapDataApi' do
-    byebug
     expect(subject.save_samples_for_all_cities).to eql("samples saved with no errors")
   end
 end

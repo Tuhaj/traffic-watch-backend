@@ -13,7 +13,7 @@ class MarkersDataManager
 
     city.markers.each do |marker|
       data = BingMapDataApi.new(marker.to_location, center)
-      marker.update(time_without_traffic:  data.travel_duration_without_traffic)
+      marker.update(time_without_traffic: data.travel_duration_without_traffic)
     end
   end
 end
