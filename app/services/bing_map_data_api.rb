@@ -1,4 +1,4 @@
-class GoogleMapDataApi
+class BingMapDataApi
   require 'open-uri'
 
   BING_MAP_API_KEY = "AjawBlxww1VCH8MChGmqC4WAOm2ya5jHSTDy94IFFfchtY7-EEkpzPJAtrJ4Nuja"
@@ -11,7 +11,7 @@ class GoogleMapDataApi
   end
 
   def self.save_samples_for_city(city_name)
-    city= City.find_by_name(city_name)
+    city = City.find_by_name(city_name)
     center = city.center
     raport_hash = {}
     sum = 0
@@ -51,6 +51,10 @@ class GoogleMapDataApi
 
   def self.time(data)
     data_base(data)["travelDurationTraffic"]
+  end
+
+  def self.travel_duration_without_traffic(data)
+    data_base(data)["travelDuration"]
   end
 
 ### not used now
