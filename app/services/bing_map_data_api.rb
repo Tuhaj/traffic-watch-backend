@@ -1,7 +1,7 @@
 class BingMapDataApi
   require 'open-uri'
 
-  BING_MAP_API_KEY = ENV['BING_MAP_API_KEY']
+  BING_MAP_API_KEY = ENV['bing_map_api_key']
 
   def initialize(start, target)
     @start = start
