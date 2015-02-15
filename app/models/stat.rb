@@ -6,7 +6,7 @@ class Stat < ActiveRecord::Base
   end
 
   def to_raport
-    "#{ created_at }.............#{ average_time_to_center }"
+    "#{ created_at }.............#{ weighted_mean }"
   end
 
   def to_raport_min
