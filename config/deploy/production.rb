@@ -7,6 +7,7 @@
 set :bagman, '178.62.46.43'
 server :bagman, user: 'piotr', roles: %w{web app db}, :primary => true
 
+set :rails_env, "production"
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server definition into the
@@ -39,3 +40,14 @@ server :bagman, user: 'piotr', roles: %w{web app db}, :primary => true
 #     auth_methods: %w(publickey password)
 #     # password: 'please use keys'
 #   }
+
+# namespace :whenever do
+#   desc 'update crontab'
+#   task :update_crontab do
+#     on roles(:db) do
+#       execute "/bin/bash -lxc whenever --update-crontab store"
+#     end
+#   end
+# end
+
+# after "deploy:updated",  "whenever:update_crontab"

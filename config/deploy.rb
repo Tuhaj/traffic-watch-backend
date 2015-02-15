@@ -1,6 +1,9 @@
 # config valid only for current version of Capistrano
 lock '3.3.5'
 
+set :rvm_type, :user                     # Defaults to: :auto
+set :rvm_ruby_version, '2.2.0'
+
 set :application, 'traffic-watch'
 set :repo_url, 'git@github.com:Tuhaj/traffic-watch-backend.git'
 
@@ -8,6 +11,8 @@ set :repo_url, 'git@github.com:Tuhaj/traffic-watch-backend.git'
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 set :user, "piotr"
 set :group, "piotr"
+set :use_sudo, false
+
 # Default deploy_to directory is /var/www/my_app_name
 
 set :deploy_to, '/home/piotr/traffic-watch-backend'
@@ -15,6 +20,8 @@ set :deploy_to, '/home/piotr/traffic-watch-backend'
 
 set :deploy_via, :copy
 set :copy_strategy, :export
+set :linked_files, %w{config/database.yml config/application.yml config/secrets.yml}
+set :linked_dirs, %w{log tmp}
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -40,20 +47,5 @@ set :copy_strategy, :export
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-namespace :deploy do
-
-  desc 'update crontab'
-  task :update_crontab do
-    run "whenever --update-crontab store"
-  end
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
-
-end
+# before 'deploy:setup', 'rvm:install_rvm'  # install/update RVM
+# before 'deploy:setup', 'rvm:install_ruby' # install Ruby and create gemset, OR:
