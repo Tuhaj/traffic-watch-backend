@@ -49,3 +49,5 @@ set :linked_dirs, %w{log tmp}
 
 # before 'deploy:setup', 'rvm:install_rvm'  # install/update RVM
 # before 'deploy:setup', 'rvm:install_ruby' # install Ruby and create gemset, OR:
+after 'deploy', 'whenever:update_crontab'
+
