@@ -54,6 +54,9 @@ gem 'whenever', :require => false
 
 gem 'figaro'
 
+gem 'active_model_serializers', '~>8.3'
+
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
