@@ -54,7 +54,7 @@ gem 'whenever', :require => false
 
 gem 'figaro'
 
-gem 'active_model_serializers', '~>8.3'
+gem 'active_model_serializers'
 
 
 # Use ActiveModel has_secure_password
