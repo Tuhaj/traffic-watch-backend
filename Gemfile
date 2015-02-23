@@ -62,6 +62,8 @@ gem 'active_model_serializers'
 
 gem 'unicorn'
 
+gem 'front_end_builds'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

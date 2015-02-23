@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214210936) do
+ActiveRecord::Schema.define(version: 20150223223804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,38 @@ ActiveRecord::Schema.define(version: 20150214210936) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "front_end_builds_apps", force: true do |t|
+    t.string   "name"
+    t.string   "api_key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "require_manual_activation", default: false
+    t.integer  "live_build_id"
+  end
+
+  add_index "front_end_builds_apps", ["api_key"], name: "index_front_end_builds_apps_on_api_key", using: :btree
+  add_index "front_end_builds_apps", ["name"], name: "index_front_end_builds_apps_on_name", using: :btree
+
+  create_table "front_end_builds_builds", force: true do |t|
+    t.integer  "app_id"
+    t.string   "sha"
+    t.string   "job"
+    t.string   "branch"
+    t.text     "html"
+    t.boolean  "fetched",                 default: false
+    t.boolean  "active",                  default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "endpoint",   limit: 2038
+  end
+
+  add_index "front_end_builds_builds", ["active"], name: "index_front_end_builds_builds_on_active", using: :btree
+  add_index "front_end_builds_builds", ["app_id", "branch"], name: "index_front_end_builds_builds_on_app_id_and_branch", using: :btree
+  add_index "front_end_builds_builds", ["app_id", "job"], name: "index_front_end_builds_builds_on_app_id_and_job", using: :btree
+  add_index "front_end_builds_builds", ["app_id", "sha"], name: "index_front_end_builds_builds_on_app_id_and_sha", using: :btree
+  add_index "front_end_builds_builds", ["created_at"], name: "index_front_end_builds_builds_on_created_at", using: :btree
+  add_index "front_end_builds_builds", ["fetched"], name: "index_front_end_builds_builds_on_fetched", using: :btree
 
   create_table "markers", force: true do |t|
     t.string   "lat"
