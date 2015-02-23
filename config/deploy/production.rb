@@ -26,6 +26,7 @@ set :rails_env, "production"
 # --------------
 
  set :ssh_options, {:forward_agent => true}
+
 # ssh_options[:port] = 22
 #
 # And/or per server (overrides global)
@@ -51,3 +52,5 @@ set :rails_env, "production"
 # end
 
 # after "deploy:updated",  "whenever:update_crontab"
+after 'deploy', 'whenever:update_crontab'
+after 'deploy', 'unicorn:restart'
