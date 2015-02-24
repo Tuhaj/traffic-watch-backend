@@ -7,10 +7,13 @@
 # a more verbose configuration using more features.
 
 # listen 3000 # by default Unicorn listens on port 8080 I comment it out so gets request from NginX
-worker_processes 2# this should be >= nr_cpus
+
+worker_processes 2 # this should be >= nr_cpus
 pid "/home/piotr/traffic-watch-backend/shared/tmp/pids/unicorn.pid"
 stderr_path "/home/piotr/traffic-watch-backend/shared/log/unicorn.log"
 stdout_path "/home/piotr/traffic-watch-backend/shared/log/unicorn.log"
+
+preload_app       true
 
 # Help ensure your application will always spawn in the symlinked
 # "current" directory that Capistrano sets up.
