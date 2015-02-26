@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
 
+
   mount FrontEndBuilds::Engine, at: '/frontend-admin'
 
   get "/cities"          => "cities#index"
-  get "/city/:name"       => "cities#show"
+  get "/city/:name"      => "cities#show"
+  get 'stats/:name'      => 'stats#show'
 
   front_end 'traffic-watch', '/traffic-watch'
 
