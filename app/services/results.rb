@@ -8,15 +8,15 @@ class Results
 
     stats.each do |stat|
       message = opts[:min] == true ? stat.to_raport_min : stat.to_raport
-      puts message
+      Rails.logger.info(message)
     end
     nil
   end
 
   def self.show_all_cities(opts={})
     City.all.each do |city|
-      puts "________________________________________"
-      puts "City #{city.name}"
+      Rails.logger.info("________________________________________")
+      Rails.logger.info("City #{city.name}")
       show(city.name, opts)
     end
     nil

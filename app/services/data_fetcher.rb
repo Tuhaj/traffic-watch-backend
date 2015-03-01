@@ -36,15 +36,15 @@ class DataFetcher
   end
 
   def self.get_report(city_name, raport_hash, weighted_mean)
-    puts "Now at #{Time.now}"
+    Rails.logger.info("Now at #{Time.now}")
     raport_hash.each do |key, value|
-      puts '-----'
-      puts "Location: #{key.to_location}"
-      puts "Time: #{value}"
-      puts "Traffic load percentage: #{ count_percentage(value, key) }%"
+      Rails.logger.info('-----')
+      Rails.logger.info("Location: #{key.to_location}")
+      Rails.logger.info("Time: #{value}")
+      Rails.logger.info("Traffic load percentage: #{ count_percentage(value, key) }%")
     end
 
-    puts "The average time to get now the center of #{city_name} is #{ to_minutes(weighted_mean) } minutes (#{ weighted_mean } seconds)"
+    Rails.logger.info("The average time to get now the center of #{city_name} is #{ to_minutes(weighted_mean) } minutes (#{ weighted_mean } seconds)")
   end
 
   private
