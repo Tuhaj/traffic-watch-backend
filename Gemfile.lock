@@ -183,7 +183,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers
+  active_model_serializers (~> 0.9.3)
   byebug
   capistrano (~> 3.3.5)
   capistrano-rails (~> 1.1)
