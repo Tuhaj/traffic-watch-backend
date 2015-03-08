@@ -3,9 +3,15 @@ class MarkerSerializer < ActiveModel::Serializer
 
   attributes :id, :lat, :lng, :time_without_traffic
 
-  has_many :samples, embed: :objects
+  # has_many :samples, embed: :objects # used when the ralation was not async
 
-  def samples
-    object.samples.where('created_at > ?', 1.day.ago)
+  # Attributes computed by serializer
+  attributes :links
+
+  def links
+    {
+      samples: url_helpers.marker_samples_path(object),
+
+    }
   end
 end
