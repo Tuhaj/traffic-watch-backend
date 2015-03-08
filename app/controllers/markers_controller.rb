@@ -2,7 +2,7 @@ class MarkersController < ApplicationController
   respond_to :json
 
   def samples
-    render json: { samples: Marker.find(marker_params[:marker_id]).samples.where('created_at > ?', 1.day.ago), each_serializer: SampleSerializer }
+    render json: { samples: Marker.find(marker_params[:marker_id]).samples.where('created_at > ?', 1.day.ago) }
   end
 
   private
