@@ -4,6 +4,7 @@ class MarkerSerializer < ActiveModel::Serializer
   attributes :id, :lat, :lng, :time_without_traffic
 
   # has_many :samples, embed: :objects # used when the ralation was not async
+  has_many :polylines, embed: :objects
 
   attributes :current_load
   # Attributes computed by serializer
