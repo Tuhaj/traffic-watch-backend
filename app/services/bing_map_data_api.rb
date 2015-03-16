@@ -25,6 +25,14 @@ class BingMapDataApi
   def traffic_congestion
     data_base["trafficCongestion"]
   end
+
+  def all_points_coordinates
+    points.map{|point| point['maneuverPoint']['coordinates']}
+  end
+
+  def points
+    data_base['routeLegs'][0]['itineraryItems']
+  end
 ###
   private
 
