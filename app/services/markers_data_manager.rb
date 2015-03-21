@@ -54,7 +54,7 @@ class MarkersDataManager
   def self.set_true_time_without_traffic(city_name)
     city = City.find_by_name(city_name)
     city.markers.each do |marker|
-      minimal_traffic = marker.samples.minimum(:time)
+      minimal_traffic = marker.samples.map{|s| s.time.to_i}.min
       marker.update(time_without_traffic: minimal_traffic)
     end
   end
