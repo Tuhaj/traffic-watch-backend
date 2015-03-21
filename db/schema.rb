@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150308213422) do
+ActiveRecord::Schema.define(version: 20150321134117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 20150308213422) do
     t.string   "time_without_traffic"
   end
 
+  add_index "markers", ["city_id"], name: "index_markers_on_city_id", using: :btree
+
   create_table "points", force: true do |t|
     t.string   "lat"
     t.string   "lng"
@@ -72,11 +74,15 @@ ActiveRecord::Schema.define(version: 20150308213422) do
     t.datetime "updated_at"
   end
 
+  add_index "points", ["polyline_id"], name: "index_points_on_polyline_id", using: :btree
+
   create_table "polylines", force: true do |t|
     t.integer  "marker_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "polylines", ["marker_id"], name: "index_polylines_on_marker_id", using: :btree
 
   create_table "samples", force: true do |t|
     t.string   "time"
@@ -92,5 +98,7 @@ ActiveRecord::Schema.define(version: 20150308213422) do
     t.datetime "updated_at"
     t.string   "weighted_mean"
   end
+
+  add_index "stats", ["city_id"], name: "index_stats_on_city_id", using: :btree
 
 end
