@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   get '/city/:name'      => 'cities#show',  as: 'city'
   get '/city/stats/:id'  => 'cities#stats', as: 'city_stats'
 
-  get '/stats/:name'        => 'stats#show',      as: 'stat'
-  get '/samples/:marker_id' => 'markers#samples', as: 'marker_samples'
+  get '/stats/:name'             => 'stats#show',      as: 'stat'
+  get '/samples/:marker_id'      => 'markers#samples', as: 'marker_samples'
+  get '/marker_load/:marker_id'  => 'markers#load',    as: 'marker_load'
   # get '/samples/:name'   => 'samples#show', as: 'sample'
   front_end 'traffic-watch', '/traffic-watch'
 
