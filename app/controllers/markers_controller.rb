@@ -1,6 +1,8 @@
 class MarkersController < ApplicationController
   respond_to :json
 
+  # use if async samples needed
+
   # def samples
   #   render json: { Marker.find(marker_params[:marker_id]).samples.where('created_at > ?', 6.days.ago.midnight).select{|sample| sample.created_at.min < 5} }
   # end
