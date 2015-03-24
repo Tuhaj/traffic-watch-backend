@@ -7,9 +7,10 @@ class MarkersController < ApplicationController
 
   def load
     date = Time.parse(load_params[:date])
-    margin = 5.minutes
-    render json: { load: Marker.find(load_params[:marker_id])
-      .samples.where('created_at >= ? and created_at < ?', date - margin, date + margin) }
+    margin = 8.minutes
+    marker = Marker.find(load_params[:marker_id])
+    sample = marker.samples.where('created_at >= ? and created_at < ?', date - margin, date + margin).last
+    render json: { load: sample.traffic_load_percentage }
   end
 
   private
