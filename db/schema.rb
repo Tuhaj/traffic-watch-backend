@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150321134117) do
+ActiveRecord::Schema.define(version: 20150325233244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150321134117) do
     t.string   "center"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "zoom",       default: 10
   end
 
   create_table "front_end_builds_apps", force: true do |t|

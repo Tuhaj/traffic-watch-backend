@@ -1,7 +1,7 @@
 class CitySerializer < ActiveModel::Serializer
   self.root = true
 
-  attributes :id, :name, :center
+  attributes :id, :name, :center, :zoom
   has_many :markers, embed: :objects
 
   # has_many :stats, embed: :objects
