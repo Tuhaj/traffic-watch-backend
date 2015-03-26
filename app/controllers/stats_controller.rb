@@ -4,7 +4,7 @@ class StatsController < ApplicationController
   def show
     render json: City.find_by_name(city_params[:name])
       .stats.where('created_at >= ? and created_at < ?',
-                    7.days.ago.midnight, 1.day.ago.midnight), each_serializer: StatSerializer
+                    7.days.ago.midnight, Time.new.midnight), each_serializer: StatSerializer
   end
 
   private
