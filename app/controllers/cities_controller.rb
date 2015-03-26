@@ -5,18 +5,18 @@ class CitiesController < ApplicationController
     render json: City.all
   end
 
-  def show
-    render json: City.find_by_name(city_params[:name])
-  end
-
   def stats
-    render json: { stats: City.find(city_params[:id]).stats.where('created_at > ?', 1.day.ago)}
+    if city = City.find_by_name(city_params[:name])
+      stats = city.stats.where(created_at: (7.days.ago.midnight)..(Time.new.midnight))
+      render json: { stats: stats, each_serializer: StatSerializer }
+    else
+      render json: { message: 'Record not found' }, status: 404
+    end
   end
 
   private
 
   def city_params
-    params.permit(:id, :name, :center)
+    params.permit(:name)
   end
-
 end
