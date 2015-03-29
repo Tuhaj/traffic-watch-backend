@@ -17,15 +17,6 @@ class BingMapDataApi
     data_base["travelDuration"]
   end
 
-### not used now
-  def time_in_minutes
-    data_base["travelDurationTraffic"] / 60
-  end
-
-  def traffic_congestion
-    data_base["trafficCongestion"]
-  end
-
   def all_points_coordinates
     points.map{|point| point['maneuverPoint']['coordinates']}
   end
@@ -33,7 +24,7 @@ class BingMapDataApi
   def points
     data_base['routeLegs'][0]['itineraryItems']
   end
-###
+
   private
 
   def get_data_json

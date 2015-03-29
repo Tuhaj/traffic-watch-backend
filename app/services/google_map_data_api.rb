@@ -11,7 +11,6 @@ class GoogleMapDataApi
     steps.map{|step| step['end_location']}
   end
 
-###
   private
 
   def get_data_json
