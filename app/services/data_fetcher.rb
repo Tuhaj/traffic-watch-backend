@@ -15,7 +15,13 @@ class DataFetcher
 
     city.markers.each do |marker|
       current_time = BingMapDataApi.new(marker.to_location, city.center).time
-      marker.samples.create(time: current_time)
+
+      load = 0
+      time_without_traffic = marker.time_without_traffic.to_i
+      load = current_time.to_f / time_without_traffic if time_without_traffic != 0
+      load = (load * 100).round()
+
+      marker.samples.create(time: current_time, traffic_load: load)
 
       raport_hash[marker] = current_time
 
@@ -50,7 +56,7 @@ class DataFetcher
   private
 
   def self.to_minutes(seconds)
-    ( seconds / 60 ).round
+    ( seconds.to_f / 60 ).round
   end
 
   def self.count_percentage(numerator, denominator)

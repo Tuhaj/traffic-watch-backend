@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325233244) do
+ActiveRecord::Schema.define(version: 20150329111839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20150325233244) do
     t.integer  "marker_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "traffic_load", default: 100
   end
 
   create_table "stats", force: true do |t|
