@@ -7,7 +7,7 @@ class MarkersController < ApplicationController
     margin = 8.minutes
     sample = marker.samples.where(created_at: (date - margin)..(date + margin)).last
 
-    render json: { load: sample.traffic_load_percentage }
+    render json: { load: sample.traffic_load }
 
   rescue ActiveRecord::RecordNotFound
     render json: { message: 'Sample not found' }, status: 404
