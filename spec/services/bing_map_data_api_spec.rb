@@ -2,22 +2,33 @@ require 'spec_helper'
 
 describe BingMapDataApi do
 
-  let(:marker_location) { '1,1' }
-  let(:city_center) { "2,2" }
+  let(:marker_location) { '52.2220515,21.2504114' }
+  let(:city_center) { "52.2301036,21.0116003" }
 
-  before do
-    stub_const("BingMapDataApi::BING_MAP_API_KEY", '1234')
-    expect(OpenURI).to receive(:open_uri).with(uri).and_return({})
-  end
+  subject { BingMapDataApi.new(marker_location, city_center) }
 
-  context 'OpenURI' do
-    let(:url) {"http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=1,1&wp.1=2,2&key=1234"}
-    let(:uri) { URI.parse(url) }
+  context 'with vcr', :vcr => { :cassette_name => "bing_api_response" } do
 
-    subject { BingMapDataApi.new(marker_location, city_center) }
-
-    it 'calls OpenURI with correct url with bing map key' do
-      subject
+    it 'gets response with correct time' do
+      expect(subject.time).to eql(1512)
     end
+
+    it 'gets correct coordinates for points' do
+      expect(subject.all_points_coordinates).to eql([
+        [52.222052, 21.250412],
+        [52.222829, 21.249688],
+        [52.233821, 21.127782],
+        [52.224471, 21.044542],
+        [52.234781, 21.038319],
+        [52.235173, 21.036823],
+        [52.230082, 21.01161]
+        ])
+    end
+
+    it 'gets travel duration without traffic' do
+      expect(subject.travel_duration_without_traffic).to eql(1442)
+    end
+
   end
+
 end

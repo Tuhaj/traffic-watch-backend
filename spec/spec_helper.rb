@@ -24,10 +24,10 @@ require 'net/http'
 
 WebMock.allow_net_connect!
 
-VCR.configure do |c|
-  c.cassette_library_dir = 'spec/cassettes'
-  c.hook_into :webmock
-  c.configure_rspec_metadata!
+VCR.configure do |conf|
+  conf.cassette_library_dir = 'spec/cassettes'
+  conf.hook_into :webmock
+  conf.configure_rspec_metadata!
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc,

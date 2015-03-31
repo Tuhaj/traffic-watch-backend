@@ -21,11 +21,11 @@ class BingMapDataApi
     points.map{|point| point['maneuverPoint']['coordinates']}
   end
 
+  private
+
   def points
     data_base['routeLegs'][0]['itineraryItems']
   end
-
-  private
 
   def get_data_json
     open(url_query) do |f|
@@ -34,7 +34,14 @@ class BingMapDataApi
   end
 
   def url_query
-    "http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=#{ @start }&wp.1=#{ @target }&key=#{ BING_MAP_API_KEY }"
+    uri = URI('http://dev.virtualearth.net/REST/V1/Routes/Driving')
+    params = {
+      "wp.0" => @start,
+      "wp.1" => @target,
+      "key"  => BING_MAP_API_KEY
+    }
+    uri.query = URI.encode_www_form(params)
+    uri
   end
 
   def data_base
