@@ -20,11 +20,16 @@ class GoogleMapDataApi
   end
 
   def url_query
-    "http://maps.googleapis.com/maps/api/directions/json?origin=#{ @start }&destination=#{ @target }"
+    uri = URI('http://maps.googleapis.com/maps/api/directions/json')
+    params = {
+      "origin" => @start,
+      "destination" => @target,
+    }
+    uri.query = URI.encode_www_form(params)
+    uri
   end
 
   def steps
     @data["routes"][0]["legs"][0]["steps"]
   end
 end
-

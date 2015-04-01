@@ -10,7 +10,7 @@ describe BingMapDataApi do
   context 'with vcr', :vcr => { :cassette_name => "bing_api_response" } do
 
     it 'gets response with correct time' do
-      expect(subject.time).to eql(1512)
+      expect(subject.time).to eql(1637)
     end
 
     it 'gets correct coordinates for points' do
