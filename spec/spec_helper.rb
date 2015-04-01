@@ -28,6 +28,8 @@ VCR.configure do |conf|
   conf.cassette_library_dir = 'spec/cassettes'
   conf.hook_into :webmock
   conf.configure_rspec_metadata!
+  conf.default_cassette_options = { :record => :new_episodes }
+  conf.filter_sensitive_data('<YOUR_BING_KEY>') { ENV['bing_map_api_key'] }
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
