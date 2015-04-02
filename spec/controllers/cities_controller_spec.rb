@@ -25,13 +25,13 @@ describe CitiesController, :type => :controller do
     it 'finds actual record' do
       subject
       expect(response.body)
-      expect(JSON.parse(response.body)).to have_key("stats")
+      expect(JSON.parse(response.body)).to have_key('stats')
       expect(JSON.parse(response.body)['stats'][0]['id']).to eql(stat.id)
     end
 
     context 'with stat older than 7 days' do
       before do
-        stat.update(created_at: Time.now - 8.days)
+        stat.update(created_at: Time.now - 10.days)
       end
 
       it 'does not find stats' do

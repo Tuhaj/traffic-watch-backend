@@ -1,3 +1,3 @@
 task :cron => :environment do
-  DataFetcher.save_samples_for_all_cities
+  DataDepositor.save_samples_for_all_cities
 end
