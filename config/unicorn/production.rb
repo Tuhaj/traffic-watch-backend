@@ -1,5 +1,10 @@
 
 worker_processes 2
+
+working_directory '/home/piotr/traffic-watch-backend/current'
+
+listen "/home/piotr/traffic-watch-backend/shared/tmp/sockets/unicorn.sock", :backlog => 64
+
 preload_app       true
 before_fork do |server, worker|
 
