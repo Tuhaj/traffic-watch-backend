@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150329111839) do
+ActiveRecord::Schema.define(version: 20150516181055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,8 @@ ActiveRecord::Schema.define(version: 20150329111839) do
     t.datetime "updated_at"
     t.integer  "traffic_load", default: 100
   end
+
+  add_index "samples", ["marker_id"], name: "index_samples_on_marker_id", using: :btree
 
   create_table "stats", force: true do |t|
     t.string   "average_time_to_center"

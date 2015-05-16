@@ -5,11 +5,7 @@ Rails.application.routes.draw do
   resources :cities, only: [:index], param: :name do
     member do
       get :stats
-    end
-  end
-  resources :markers, only: [] do
-    member do
-      get :sample
+      get :traffic
     end
   end
 
