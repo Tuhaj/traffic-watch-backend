@@ -17,7 +17,6 @@ group :development do
   gem 'capistrano-rvm'
   gem 'capistrano3-unicorn'
   gem 'capistrano3-nginx', '~> 2.0'
-  gem 'spring'
   gem 'sshkit', '~> 1.3.0'
 end
 

@@ -7,7 +7,7 @@ class CitiesController < ApplicationController
 
   def stats
     if city = City.find_by_name(city_params[:name])
-      stats = city.stats.where(created_at: (7.days.ago.midnight)..(Time.new.midnight))
+      stats = city.last_week_stats
       render json: { stats: stats, each_serializer: StatSerializer }
     else
       render json: { message: 'Record not found' }, status: 404
