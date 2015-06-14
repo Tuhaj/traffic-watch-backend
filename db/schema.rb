@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516181055) do
+ActiveRecord::Schema.define(version: 20150614205102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20150516181055) do
     t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "time_without_traffic"
+    t.integer  "time_without_traffic"
   end
 
   add_index "markers", ["city_id"], name: "index_markers_on_city_id", using: :btree

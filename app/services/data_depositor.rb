@@ -1,14 +1,15 @@
-class DataDepositor
+module DataDepositor
 
-  def self.save_samples_for_all_cities
+  def save_samples_for_all_cities
     City.all.each do |city|
-      save_samples_for_city(city.name)
+      save_samples_for_city(city)
     end
   end
 
-  def self.save_samples_for_city(city_name)
-    city = City.find_by_name(city_name)
-    raport_hash = {}
+  module_function :save_samples_for_all_cities
+
+  def save_samples_for_city(city)
+    report = {}
     total_weight = 0
     weighted_sum = 0
 
@@ -16,25 +17,30 @@ class DataDepositor
       current_time = BingMapsAPI.new(marker.to_location, city.center).time
 
       load = 0
-      time_without_traffic = marker.time_without_traffic.to_i
-      load = current_time.to_f / time_without_traffic if time_without_traffic != 0
+      time_without_traffic = marker.time_without_traffic
+      load = current_time / time_without_traffic if time_without_traffic.zero?
       load = (load * 100).round()
 
       marker.samples.create(time: current_time, traffic_load: load)
 
-      raport_hash[marker] = current_time
-      time_without_traffic = marker.time_without_traffic.to_i
+      report[marker] = current_time
+      time_without_traffic = marker.time_without_traffic
       total_weight += time_without_traffic
-      weighted_sum += time_without_traffic * current_time.to_i
+      weighted_sum += time_without_traffic * current_time
     end
 
     weighted_mean = weighted_arithmetic_mean(weighted_sum, total_weight)
-    city.stats.create(weighted_mean: weighted_mean )
-    raport_hash['weighted_mean'] = weighted_mean
-    raport = RaportLogger.new(city_name, raport_hash).log_report
+    city.stats.create(weighted_mean: weighted_mean)
+    report['weighted_mean'] = weighted_mean
+    raport = RaportLogger.new(city.name, report).log_report
   end
 
-  def self.weighted_arithmetic_mean(weighted_sum, total_weight)
+  module_function :save_samples_for_city
+
+  def weighted_arithmetic_mean(weighted_sum, total_weight)
     ( weighted_sum.to_f / total_weight ).round(2)
   end
+
+  module_function :weighted_arithmetic_mean
+
 end

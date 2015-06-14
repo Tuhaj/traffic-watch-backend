@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe DataDepositor do
   let(:city)      { create :city }
-  let(:city_name) { city.name }
 
-  subject { DataDepositor.save_samples_for_city(city_name) }
+  subject { DataDepositor.save_samples_for_city(city) }
 
   before :each do
     City.destroy_all

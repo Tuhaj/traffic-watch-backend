@@ -9,7 +9,7 @@ class BingMapsAPI
   end
 
   def time
-    api_results["travelDurationTraffic"]
+    api_results["travelDurationTraffic"].to_f
   end
 
   def travel_duration_without_traffic

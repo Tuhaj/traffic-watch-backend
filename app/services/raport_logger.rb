@@ -26,7 +26,7 @@ class RaportLogger
   end
 
   def count_percentage(numerator, denominator)
-    (numerator.to_f / denominator.time_without_traffic.to_i * 100 ).round()
+    (numerator.to_f / denominator.time_without_traffic * 100 ).round()
   end
 
 end
