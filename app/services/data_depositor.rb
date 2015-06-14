@@ -13,7 +13,7 @@ class DataDepositor
     weighted_sum = 0
 
     city.markers.each do |marker|
-      current_time = BingMapDataApi.new(marker.to_location, city.center).time
+      current_time = BingMapsAPI.new(marker.to_location, city.center).time
 
       load = 0
       time_without_traffic = marker.time_without_traffic.to_i

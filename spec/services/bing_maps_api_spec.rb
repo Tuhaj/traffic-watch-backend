@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe BingMapDataApi do
+describe BingMapsAPI do
 
   let(:marker_location) { '52.2220515,21.2504114' }
   let(:city_center) { "52.2301036,21.0116003" }
 
-  subject { BingMapDataApi.new(marker_location, city_center) }
+  subject { BingMapsAPI.new(marker_location, city_center) }
 
   context 'with vcr', :vcr => { :cassette_name => "bing_api_response" } do
 

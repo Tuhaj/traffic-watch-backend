@@ -1,4 +1,4 @@
-class BingMapDataApi
+class BingMapsAPI
   require 'open-uri'
 
   BING_MAP_API_KEY = ENV['bing_map_api_key']
