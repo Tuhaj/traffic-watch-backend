@@ -6,15 +6,14 @@ class BingMapsAPI
   def initialize(start, target)
     @start = start
     @target = target
-    @data = get_data_json
   end
 
   def time
-    data_base["travelDurationTraffic"]
+    api_results["travelDurationTraffic"]
   end
 
   def travel_duration_without_traffic
-    data_base["travelDuration"]
+    api_results["travelDuration"]
   end
 
   def all_points_coordinates
@@ -24,11 +23,11 @@ class BingMapsAPI
   private
 
   def points
-    data_base['routeLegs'][0]['itineraryItems']
+    api_results['routeLegs'][0]['itineraryItems']
   end
 
   def get_data_json
-    open(url_query) do |f|
+    @get_data_json ||= open(url_query) do |f|
       JSON.load(f)
     end
   end
@@ -44,7 +43,7 @@ class BingMapsAPI
     uri
   end
 
-  def data_base
-    @data["resourceSets"][0]["resources"][0]
+  def api_results
+    get_data_json["resourceSets"][0]["resources"][0]
   end
 end
