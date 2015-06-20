@@ -23,8 +23,7 @@ describe CitiesController, :type => :controller do
     subject    { get :stats, name: city.name, format: :json }
 
     it 'finds actual record' do
-      subject
-      expect(response.body)
+      subject; expect(response.body)
       expect(JSON.parse(response.body)).to have_key('stats')
       expect(JSON.parse(response.body)['stats'][0]['id']).to eql(stat.id)
     end
@@ -35,18 +34,16 @@ describe CitiesController, :type => :controller do
       end
 
       it 'does not find stats' do
-        subject
-        expect(JSON.parse(response.body)['stats'].count).to eql(0)
+        subject; expect(JSON.parse(response.body)['stats'].count).to eql(0)
       end
 
     end
 
     context 'with wrong city name' do
-      subject  { get :stats, name: 'Barsab', format: :json }
+      subject { get :stats, name: 'Barsab', format: :json }
 
       specify do
-        subject
-        expect(response.status).to  eql(404)
+        subject; expect(response.status).to  eql(404)
         expect(response.message).to eql('Not Found')
       end
     end
