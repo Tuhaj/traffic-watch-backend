@@ -1,15 +1,14 @@
-class RaportLogger
+class ReportLogger
 
-  def initialize(city_name, raport_hash, logger=Rails.logger)
+  def initialize(city_name, report, weighted_mean, logger=Rails.logger)
     @city_name = city_name
-    @weighted_mean = raport_hash.delete('weighted_mean')
-    @raport_hash = raport_hash
+    @weighted_mean = weighted_mean
+    @report = report
     @logger = logger
   end
 
   def log_report
-    @logger.info("Now at #{Time.now}")
-    @raport_hash.each do |key, value|
+    @report.each do |key, value|
       @logger.info("Location: #{key.to_location}")
       @logger.info("Time: #{value}")
       @logger.info("Traffic load percentage: #{ count_percentage(value, key) }%")

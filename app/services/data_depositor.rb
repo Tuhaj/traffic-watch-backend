@@ -15,13 +15,7 @@ module DataDepositor
 
     city.markers.each do |marker|
       current_time = BingMapsAPI.new(marker.to_location, city.center).time
-
-      load = 0
-      time_without_traffic = marker.time_without_traffic
-      load = current_time / time_without_traffic if time_without_traffic.zero?
-      load = (load * 100).round()
-
-      marker.samples.create(time: current_time, traffic_load: load)
+      marker.create_sample(current_time)
 
       report[marker] = current_time
       time_without_traffic = marker.time_without_traffic
@@ -31,8 +25,7 @@ module DataDepositor
 
     weighted_mean = weighted_arithmetic_mean(weighted_sum, total_weight)
     city.stats.create(weighted_mean: weighted_mean)
-    report['weighted_mean'] = weighted_mean
-    raport = RaportLogger.new(city.name, report).log_report
+    ReportLogger.new(city.name, report, weighted_mean).log_report
   end
 
   module_function :save_samples_for_city
