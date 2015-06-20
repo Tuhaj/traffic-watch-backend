@@ -1,12 +1,6 @@
-class BingMapsAPI
-  require 'open-uri'
-
-  BING_MAP_API_KEY = ENV['bing_map_api_key']
-
-  def initialize(start, target)
-    @start = start
-    @target = target
-  end
+class BingMapsAPI < MapsAPI
+  MAPS_KEY = ENV['bing_map_api_key']
+  API_URL  = 'http://dev.virtualearth.net/REST/V1/Routes/Driving'
 
   def time
     api_results["travelDurationTraffic"].to_f
@@ -22,25 +16,20 @@ class BingMapsAPI
 
   private
 
-  def points
-    api_results['routeLegs'][0]['itineraryItems']
+  def api_url
+    API_URL
   end
 
-  def get_data_json
-    @get_data_json ||= open(url_query) do |f|
-      JSON.load(f)
-    end
-  end
-
-  def url_query
-    uri = URI('http://dev.virtualearth.net/REST/V1/Routes/Driving')
-    params = {
+  def map_params
+    {
       "wp.0" => @start,
       "wp.1" => @target,
-      "key"  => BING_MAP_API_KEY
+      "key"  => MAPS_KEY
     }
-    uri.query = URI.encode_www_form(params)
-    uri
+  end
+
+  def points
+    api_results['routeLegs'][0]['itineraryItems']
   end
 
   def api_results

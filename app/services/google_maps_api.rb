@@ -1,11 +1,6 @@
-class GoogleMapsAPI
-  require 'open-uri'
-
-  def initialize(start, target)
-    @start = start
-    @target = target
-    @data = get_data_json
-  end
+class GoogleMapsAPI < MapsAPI
+  MAPS_KEY = ''
+  API_URL  = 'http://maps.googleapis.com/maps/api/directions/json'
 
   def all_steps_coordinates
     steps.map{|step| step['end_location']}
@@ -13,23 +8,19 @@ class GoogleMapsAPI
 
   private
 
-  def get_data_json
-    open(url_query) do |f|
-      JSON.load(f)
-    end
+  def api_url
+    API_URL
   end
 
-  def url_query
-    uri = URI('http://maps.googleapis.com/maps/api/directions/json')
-    params = {
-      "origin" => @start,
+  def map_params
+    {
+      "origin"      => @start,
       "destination" => @target,
+      "key"         => MAPS_KEY
     }
-    uri.query = URI.encode_www_form(params)
-    uri
   end
 
   def steps
-    @data["routes"][0]["legs"][0]["steps"]
+    get_data_json["routes"][0]["legs"][0]["steps"]
   end
 end
