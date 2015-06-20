@@ -23,7 +23,7 @@ module DataDepositor
       weighted_sum += time_without_traffic * current_time
     end
 
-    weighted_mean = weighted_arithmetic_mean(weighted_sum, total_weight)
+    weighted_mean = weighted_arithmetic_mean(weighted_sum, total_weight).to_f
     city.stats.create(weighted_mean: weighted_mean)
     ReportLogger.new(city.name, report, weighted_mean).log_report
   end

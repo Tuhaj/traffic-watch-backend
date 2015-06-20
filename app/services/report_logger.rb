@@ -9,23 +9,27 @@ class ReportLogger
 
   def log_report
     @report.each do |key, value|
-      @logger.info("Location: #{key.to_location}")
-      @logger.info("Time: #{value}")
-      @logger.info("Traffic load percentage: #{ count_percentage(value, key) }%")
+      @logger.info({
+        "Location" => key.to_location,
+        "Time"     => value,
+        "Traffic load percentage" =>
+          calculate_percentage(value, key.time_without_traffic)
+      })
     end
 
     @logger.info("The average time to get now the center of #{@city_name}:")
-    @logger.info(" is #{ weighted_mean_in_minutes } minutes (#{ @weighted_mean } seconds)")
+    @logger.info(" is #{ weighted_mean_in_minutes } minutes
+      (#{ @weighted_mean } seconds)")
   end
 
   private
 
   def weighted_mean_in_minutes
-    ( @weighted_mean.to_f / 60 ).round
+    ( @weighted_mean / 60 ).round
   end
 
-  def count_percentage(numerator, denominator)
-    (numerator.to_f / denominator.time_without_traffic * 100 ).round()
+  def calculate_percentage(numerator, denominator)
+    (100.0 * numerator / denominator).round
   end
 
 end
