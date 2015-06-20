@@ -1,4 +1,4 @@
-class GoogleMapDataApi
+class GoogleMapsAPI
   require 'open-uri'
 
   def initialize(start, target)
