@@ -10,8 +10,11 @@ class Marker < ActiveRecord::Base
   end
 
   def load(time)
-    samples.where(created_at: (time - MARGIN)..(time + MARGIN)).last
-      .traffic_load
+    if sample = samples.where(created_at: (time - MARGIN)..(time + MARGIN)).last
+      sample.traffic_load
+    else
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
   def create_sample(time)
